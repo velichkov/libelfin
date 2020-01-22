@@ -56,16 +56,17 @@ CLEAN += libelf++.pc
 .PHONY: always
 
 PREFIX?=/usr/local
+LIBDIR?=lib
 
 install: libelf++.a libelf++.so libelf++.so.$(SONAME) libelf++.pc
-	install -d $(PREFIX)/lib/pkgconfig
-	install -t $(PREFIX)/lib libelf++.a
-	install -t $(PREFIX)/lib libelf++.so.$(SONAME)
-	install -t $(PREFIX)/lib libelf++.so
+	install -d $(PREFIX)/$(LIBDIR)/pkgconfig
+	install -t $(PREFIX)/$(LIBDIR) libelf++.a
+	install -t $(PREFIX)/$(LIBDIR) libelf++.so.$(SONAME)
+	install -t $(PREFIX)/$(LIBDIR) libelf++.so
 	install -d $(PREFIX)/include/libelfin/elf
 	install -t $(PREFIX)/include/libelfin/elf common.hh data.hh elf++.hh
-	sed 's,^libdir=.*,libdir=$(PREFIX)/lib,;s,^includedir=.*,includedir=$(PREFIX)/include,' libelf++.pc \
-		> $(PREFIX)/lib/pkgconfig/libelf++.pc
+	sed 's,^libdir=.*,libdir=$(PREFIX)/$(LIBDIR),;s,^includedir=.*,includedir=$(PREFIX)/include,' libelf++.pc \
+		> $(PREFIX)/$(LIBDIR)/pkgconfig/libelf++.pc
 
 clean:
 	rm -f $(CLEAN)

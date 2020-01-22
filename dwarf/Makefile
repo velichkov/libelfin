@@ -58,16 +58,17 @@ CLEAN += libdwarf++.pc
 .PHONY: always
 
 PREFIX?=/usr/local
+LIBDIR?=lib
 
 install: libdwarf++.a libdwarf++.so.$(SONAME) libdwarf++.so libdwarf++.pc
-	install -d $(PREFIX)/lib/pkgconfig
-	install -t $(PREFIX)/lib libdwarf++.a
-	install -t $(PREFIX)/lib libdwarf++.so.$(SONAME)
-	install -t $(PREFIX)/lib libdwarf++.so
+	install -d $(PREFIX)/$(LIBDIR)/pkgconfig
+	install -t $(PREFIX)/$(LIBDIR) libdwarf++.a
+	install -t $(PREFIX)/$(LIBDIR) libdwarf++.so.$(SONAME)
+	install -t $(PREFIX)/$(LIBDIR) libdwarf++.so
 	install -d $(PREFIX)/include/libelfin/dwarf
 	install -t $(PREFIX)/include/libelfin/dwarf data.hh dwarf++.hh small_vector.hh
-	sed 's,^libdir=.*,libdir=$(PREFIX)/lib,;s,^includedir=.*,includedir=$(PREFIX)/include,' libdwarf++.pc \
-		> $(PREFIX)/lib/pkgconfig/libdwarf++.pc
+	sed 's,^libdir=.*,libdir=$(PREFIX)/$(LIBDIR),;s,^includedir=.*,includedir=$(PREFIX)/include,' libdwarf++.pc \
+		> $(PREFIX)/$(LIBDIR)/pkgconfig/libdwarf++.pc
 
 clean:
 	rm -f $(CLEAN)
